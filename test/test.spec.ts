@@ -14,6 +14,10 @@ describe('Create client and check user info', () => {
     );
 
     console.log(client);
-    const test = await client.getSubAccounts();
+    const { data } = await client.getSubAccounts({
+      currentPage: 1,
+      pageSize: 1,
+    });
+    console.log(data);
   });
 });
