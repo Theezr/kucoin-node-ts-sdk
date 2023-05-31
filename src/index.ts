@@ -17,6 +17,7 @@ import { createHistoriesRequest } from './marketData/histories';
 import { createCurrenciesRequest } from './marketData/currencies';
 import { createMarketInfoRequest } from './marginTrade/marginInfo';
 import { createBorrowLendRequest } from './marginTrade/borrowLend';
+import { createIsolatedMarginRequest } from './marginTrade/isolatedMargin';
 
 export class Client {
   private baseUrl = baseUrl;
@@ -67,4 +68,5 @@ export class Client {
   public currencies = createCurrenciesRequest(this.get);
   public marginInfo = createMarketInfoRequest(this.get);
   public borrowLend = createBorrowLendRequest(this.get, this.post, this.delete);
+  public isolatedMargin = createIsolatedMarginRequest(this.get, this.post);
 }
