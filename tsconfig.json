@@ -1,9 +1,15 @@
 {
+  "include": [
+    "./src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "./src/*.test.ts"
+  ],
   "compilerOptions": {
     "target": "es2021" /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', or 'ESNEXT'. */,
     "module": "CommonJS" /* Specify module code generation: 'commonjs', 'amd', 'system', 'umd' or 'es2015'. */,
     "moduleResolution": "node",
-    "rootDir": "src", /* Specify the root folder within your source files. */
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true, /* Enable all strict type-checking options. */
