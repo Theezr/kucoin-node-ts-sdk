@@ -1,4 +1,5 @@
 import { AxiosResponse } from 'axios';
+import { ordersUrl as url } from '../utils/urls';
 
 export const createOrderRequest = (
   get: (endpoint: string, params?: any) => Promise<AxiosResponse>,
@@ -6,20 +7,19 @@ export const createOrderRequest = (
   del: (endpoint: string, params?: any) => Promise<AxiosResponse>,
 ) => ({
   placeNewOrder: async (body: IPlaceNewOrder & ILimitOrderParameters) =>
-    post(`/api/v1/orders`, body),
+    post(url.placeNewOrder, body),
   placeMarginOrder: async (body: IPlaceMarginOrder & ILimitOrderParameters) =>
-    post(`/api/v1/margin/order`, body),
-  placeBulkOrders: async (body: IPlaceBulkOrders) => post(`/api/v1/orders/multi`, body),
-  // cancel order delete
-  cancelOrder: async (params: IOrder) => del(`/api/v1/orders/${params.orderId}`, {}),
+    post(url.placeMarginOrder, body),
+  placeBulkOrders: async (body: IPlaceBulkOrders) => post(url.placeBulkOrders, body),
+  cancelOrder: async (params: IOrder) => del(`${url.cancelOrder}/${params.orderId}`, {}),
   cancelSingleOrder: async (params: ISingleOrder) =>
-    del(`/api/v1/order/client-order/${params.clientOid}`, {}),
-  cancelAllOrder: async (params: ICancelAllOrder) => del(`/api/v1/orders`, params),
-  listOrders: async (params: IListOrders) => get(`/api/v1/orders`, params),
-  recentOrders: async () => get(`/api/v1/limit/orders`, {}),
-  getAnOrder: async (params: IOrder) => get(`/api/v1/orders/${params.orderId}`, {}),
+    del(`${url.cancelSingleOrder}/${params.clientOid}`, {}),
+  cancelAllOrder: async (params: ICancelAllOrder) => del(url.cancelAllOrder, params),
+  listOrders: async (params: IListOrders) => get(url.listOrders, params),
+  recentOrders: async () => get(url.recentOrders, {}),
+  getAnOrder: async (params: IOrder) => get(`${url.getAnOrder}/${params.orderId}`, {}),
   getSingleActiveOrder: async (params: ISingleOrder) =>
-    get(`/api/v1/order/client-order/${params.clientOid}`, {}),
+    get(`${url.getSingleActiveOrder}/${params.clientOid}`, {}),
 });
 
 export type IPlaceNewOrder = {

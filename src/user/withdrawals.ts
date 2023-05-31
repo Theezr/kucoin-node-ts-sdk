@@ -1,16 +1,18 @@
 import { AxiosResponse } from 'axios';
+import { withdrawalUrls as url } from '../utils/urls';
 
 export const createWithdrawalsRequest = (
   get: (endpoint: string, params?: any) => Promise<AxiosResponse>,
   post: (endpoint: string, body: any) => Promise<AxiosResponse>,
+  del: (endpoint: string, params?: any) => Promise<AxiosResponse>,
 ) => ({
-  getWithdrawalsList: async (params: IGetWithdrawalsList) => get(`/api/v1/withdrawals`, params),
+  getWithdrawalsList: async (params: IGetWithdrawalsList) => get(url.getWithdrawalsList, params),
   getHistoricalWithdrawalsList: async (params: IGetHistoricalWithdrawalsList) =>
-    get(`/api/v1/hist-withdrawals`, params),
-  getWithdrawalQuotas: async (params: IGetWithdrawalQuotas) =>
-    get(`/api/v1/withdrawals/quotas`, params),
-  applyWithdraw: async (body: IApplyWithdraw) => post(`/api/v1/withdrawals`, body),
-  // CANCEL WITHDRAW DELETE METHOD
+    get(url.getHistoricalWithdrawalsList, params),
+  getWithdrawalQuotas: async (params: IGetWithdrawalQuotas) => get(url.getWithdrawalQuotas, params),
+  applyWithdraw: async (body: IApplyWithdraw) => post(url.applyWithdraw, body),
+  cancelWithdraw: async (params: ICancelWithdrawal) =>
+    del(`${url.cancelWithdraw}/${params.withdrawalId}`, {}),
 });
 
 type Status = 'PROCESSING' | 'SUCCESS' | 'FAILURE';
@@ -46,4 +48,8 @@ export type IApplyWithdraw = {
   remark?: string;
   chain?: string;
   feeDeductType?: FeeDeductType;
+};
+
+export type ICancelWithdrawal = {
+  withdrawalId: string;
 };

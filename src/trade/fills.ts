@@ -1,9 +1,5 @@
 import { AxiosResponse } from 'axios';
-
-const url = {
-  listFills: '/api/v1/fills',
-  recentFills: '/api/v1/limit/fills',
-};
+import { fillsUrls as url } from '../utils/urls';
 
 export const createFillRequest = (
   get: (endpoint: string, params?: any) => Promise<AxiosResponse>,

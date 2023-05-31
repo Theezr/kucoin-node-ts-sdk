@@ -1,33 +1,30 @@
 import { AxiosResponse } from 'axios';
+import { accountUrls as url } from '../utils/urls';
 
 export const createAccountRequest = (
   get: (endpoint: string, params?: any) => Promise<AxiosResponse>,
   post: (endpoint: string, body: any) => Promise<AxiosResponse>,
 ) => ({
-  listAccounts: async (params: IListAccounts) => get(`/api/v1/accounts`, params),
-  getAnAccount: async ({ accountId }: IGetAnAccount) => get(`/api/v1/accounts/${accountId}`),
-  getAccountLedgers: async (params: IGetAccountLedgers) => get(`/api/v1/accounts/ledgers`, params),
-  getAccountSummaryInfo: async () => get(`/api/v2/user-info`),
-  createSubAccount: async (body: ICreateSubAccount) => post(`/api/v2/sub/user/created`, body),
+  listAccounts: async (params: IListAccounts) => get(url.listAccounts, params),
+  getAnAccount: async ({ accountId }: IGetAnAccount) => get(`${url.getAnAccount}/${accountId}`),
+  getAccountLedgers: async (params: IGetAccountLedgers) => get(url.getAccountLedgers, params),
+  getAccountSummaryInfo: async () => get(url.getAccountSummaryInfo),
+  createSubAccount: async (body: ICreateSubAccount) => post(url.createSubAccount, body),
   getSubAccountSpotList: async (params: IGetSubAccountSpotList) =>
-    get(`/api/v1/sub/api-key`, params),
+    get(url.getSubAccountSpotList, params),
   createSpotForSubAccount: async (body: ICreateSpotForSubAccount) =>
-    post(`/api/v1/sub/api-key`, body),
-  modifySubAccountSpot: async (body: IModifySubAccountSpot) =>
-    post(`/api/v1/sub/api-key/update`, body),
-  // deleteSubAccountSpot = async (body: IModifySubAccountSpot) =>
-  //   post(`/v1/sub/api-key/update`, body),
+    post(url.createSpotForSubAccount, body),
+  modifySubAccountSpot: async (body: IModifySubAccountSpot) => post(url.modifySubAccountSpot, body),
   getAccountBalanceSubAccount: async (params: IGetAccountBalanceSubAccount) =>
-    get(`/api/v1/sub-accounts/${params.subUserId}`, {
+    get(`${url.getAccountBalanceSubAccount}/${params.subUserId}`, {
       includeBaseAmount: params.includeBaseAmount,
     }),
   getPaginatedSubAccountInfo: async (params: IGetPaginatedSubAccountInfo) =>
-    get(`/api/v2/sub-accounts`, params),
-  getTheTransferable: async (params: IGetTheTransferable) =>
-    get(`/api/v1/accounts/transferable`, params),
+    get(url.getPaginatedSubAccountInfo, params),
+  getTheTransferable: async (params: IGetTheTransferable) => get(url.getTheTransferable, params),
   transferBetweenMasterAndSub: async (body: ITransferBetweenMasterAndSub) =>
-    post(`/api/v2/accounts/sub-transfer`, body),
-  innerTransfer: async (body: IInnerTransfer) => post(`/api/v2/accounts/inner-transfer`, body),
+    post(url.transferBetweenMasterAndSub, body),
+  innerTransfer: async (body: IInnerTransfer) => post(url.innerTransfer, body),
 });
 
 type AccountType = 'main' | 'trade' | 'margin' | 'contract' | 'isolated';

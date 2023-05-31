@@ -1,9 +1,10 @@
 import { AxiosResponse } from 'axios';
+import { UserUrls as url } from '../utils/urls';
 
 export const createUserRequest = (
   get: (endpoint: string, params?: any) => Promise<AxiosResponse>,
 ) => ({
-  getSubAccounts: async (params: IGetSubAccounts) => get(`/api/v2/sub/user`, params),
+  getSubAccounts: async (params: IGetSubAccounts) => get(url.getSubAccounts, params),
 });
 
 export type IGetSubAccounts = {

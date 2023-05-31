@@ -1,8 +1,8 @@
 import { assert } from 'chai';
 import dotenv from 'dotenv';
 import { Client } from '../src';
-import { IInnerTransfer } from '../src/account';
-import { IBasicUserFee } from '../src/tradeFee';
+import { IInnerTransfer } from '../src/user/account';
+import { IBasicUserFee } from '../src/user/tradeFee';
 
 dotenv.config();
 
@@ -14,7 +14,9 @@ describe('Create client and check user info', () => {
       process.env.KEY as string,
     );
 
-    const { data } = await client.stopOrder.cancelSingleOrder({ clientOid: 'TRADE' });
+    const { data } = await client.currencies.getFiatPrice({
+      base: 'USD',
+    });
 
     console.log(data);
 

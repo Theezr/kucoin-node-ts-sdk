@@ -1,16 +1,15 @@
 import { AxiosResponse } from 'axios';
+import { depositUrls as url } from '../utils/urls';
 
 export const createDepositRequest = (
   get: (endpoint: string, params?: any) => Promise<AxiosResponse>,
   post: (endpoint: string, body: any) => Promise<AxiosResponse>,
 ) => ({
-  createDepositAddress: async (body: ICreateDepositAddress) =>
-    post(`/api/v1/deposit-addresses`, body),
-  getDepositAddresses: async (params: IGetDepositAddresses) =>
-    get(`/api/v2/deposit-addresses`, params),
-  getDepositList: async (params: IGetDepositList) => get(`/api/v1/deposits`, params),
+  createDepositAddress: async (body: ICreateDepositAddress) => post(url.createDepositAddress, body),
+  getDepositAddresses: async (params: IGetDepositAddresses) => get(url.getDepositAddresses, params),
+  getDepositList: async (params: IGetDepositList) => get(url.getDepositList, params),
   getHistoricalDepositsList: async (params: IGetHistoricalDepositsList) =>
-    get(`/api/v1/hist-deposits`, params),
+    get(url.getHistoricalDepositsList, params),
 });
 
 type Status = 'PROCESSING' | 'SUCCESS' | 'FAILURE';

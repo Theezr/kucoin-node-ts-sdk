@@ -1,15 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { ILimitOrderParameters, IOrder } from './orders';
-
-const url = {
-  placeNewOrder: '/api/v1/stop-order',
-  cancelOrder: '/api/v1/stop-order',
-  cancelOrders: '/api/v1/stop-order/cancel',
-  getSingleOrderInfo: '/api/v1/stop-order',
-  listStopOrders: '/api/v1/stop-order',
-  getSingleOrder: '/api/v1/stop-order/queryOrderByClientOid',
-  cancelSingleOrder: '/api/v1/stop-order/cancelOrderByClientOid',
-};
+import { stopOrderUrls as url } from '../utils/urls';
 
 export const createStopOrderRequest = (
   get: (endpoint: string, params?: any) => Promise<AxiosResponse>,
