@@ -14,8 +14,8 @@ describe('Create client and check user info', () => {
       process.env.KEY as string,
     );
 
-    const { data } = await client.currencies.getFiatPrice({
-      base: 'USD',
+    const { data } = await client.borrowLend.marginTradeData({
+      currency: 'USDT',
     });
 
     console.log(data);

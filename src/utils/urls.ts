@@ -1,3 +1,4 @@
+export const baseUrl = 'https://api.kucoin.com';
 export const UserUrls = {
   getSubAccounts: '/api/v2/sub/user',
 };
@@ -88,4 +89,30 @@ export const currenciesUrls = {
   getCurrencies: '/api/v1/currencies',
   getCurrencyDetail: '/api/v2/currencies',
   getFiatPrice: '/api/v1/prices',
+};
+
+export const marginInfoUrls = {
+  getMarkPrice: '/api/v1/mark-price',
+  getMarginConfigurationInfo: '/api/v1/margin/config',
+  getMarginAccount: '/api/v1/margin/account',
+  queryCrossIsolatedMarginLimit: '/api/v1/risk/limit/strategy',
+};
+
+export const borrowLendUrls = {
+  postBorrowOrder: '/api/v1/margin/borrow',
+  getBorrowOrder: '/api/v1/margin/borrow',
+  getRepayRecord: '/api/v1/margin/borrow/outstanding',
+  getRepaymentRecord: '/api/v1/margin/borrow/repaid',
+  oneClickRepayment: '/api/v1/margin/repay/all',
+  repaySingleOrder: '/api/v1/margin/repay/single',
+  postLendOrder: '/api/v1/margin/lend',
+  cancelLendOrder: '/api/v1/margin/lend',
+  setAutoLend: '/api/v1/margin/toggle-auto-lend',
+  getActiveOrder: '/api/v1/margin/lend/active',
+  getLentHistory: '/api/v1/margin/lend/done',
+  getActiveLendOrderList: '/api/v1/margin/lend/trade/unsettled',
+  getSettledLendOrderHistory: '/api/v1/margin/lend/trade/settled',
+  getAccountLendRecord: '/api/v1/margin/lend/assets',
+  lendingMarketData: '/api/v1/margin/market',
+  marginTradeData: '/api/v1/margin/trade/last',
 };
