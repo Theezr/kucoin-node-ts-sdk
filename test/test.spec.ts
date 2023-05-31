@@ -14,27 +14,31 @@ describe('Create client and check user info', () => {
       process.env.KEY as string,
     );
 
-    const body = {
-      clientOid: Date.now().toString(),
-      currency: 'USDT',
-      from: 'trade',
-      to: 'isolated',
-      amount: '1',
-      toTag: 'USDC-BTC',
-    } as IInnerTransfer;
+    const { data } = await client.stopOrder.cancelSingleOrder({ clientOid: 'TRADE' });
 
-    const { data } = await client.orders.palceBulkOrders({
-      orderList: [
-        {
-          clientOid: Date.now().toString(),
-          side: 'buy',
-          symbol: 'USDT',
-          price: '12',
-          size: '12',
-        },
-      ],
-    });
     console.log(data);
+
+    // const body = {
+    //   clientOid: Date.now().toString(),
+    //   currency: 'USDT',
+    //   from: 'trade',
+    //   to: 'isolated',
+    //   amount: '1',
+    //   toTag: 'USDC-BTC',
+    // } as IInnerTransfer;
+
+    // const { data } = await client.orders.placeBulkOrders({
+    //   orderList: [
+    //     {
+    //       clientOid: Date.now().toString(),
+    //       side: 'buy',
+    //       symbol: 'USDT',
+    //       price: '12',
+    //       size: '12',
+    //     },
+    //   ],
+    // });
+    // console.log(data);
     // const data = await client.getSubAccounts({
     //   currentPage: 1,
     //   pageSize: 1,

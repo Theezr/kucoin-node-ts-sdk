@@ -8,7 +8,9 @@ import { createUserRequest } from './User';
 import { createDepositRequest } from './deposit';
 import { createWithdrawalsRequest } from './withdrawals';
 import { createTradeFeeRequest } from './tradeFee';
-import { createOrderRequest } from './orders';
+import { createOrderRequest } from './trade/orders';
+import { createFillRequest } from './trade/fills';
+import { createStopOrderRequest } from './trade/stopOrder';
 
 export class Client {
   private baseUrl = 'https://api.kucoin.com';
@@ -45,15 +47,18 @@ export class Client {
     const url = `${this.baseUrl}${endpoint}`;
     return axios.post(url, body, this.createAuth('POST', endpoint, body));
   };
-  // private delete = (endpoint: string, body: any) => {
-  //   const url = `${this.baseUrl}${endpoint}`;
-  //   return axios.delete(url, body, this.createAuth('POST', url, body));
-  // };
+  private delete = (endpoint: string, params?: any) => {
+    const empty = Object.keys(params).length === 0;
+    const url = `${endpoint}${!empty ? '?' : ''}${querystring.stringify(params)}`;
+    return axios.delete(this.baseUrl + url, this.createAuth('DELETE', url));
+  };
 
   public user = createUserRequest(this.get);
   public account = createAccountRequest(this.get, this.post);
   public deposit = createDepositRequest(this.get, this.post);
   public withdrawals = createWithdrawalsRequest(this.get, this.post);
   public tradeFee = createTradeFeeRequest(this.get);
-  public orders = createOrderRequest(this.get, this.post);
+  public orders = createOrderRequest(this.get, this.post, this.delete);
+  public fills = createFillRequest(this.get);
+  public stopOrder = createStopOrderRequest(this.get, this.post, this.delete);
 }
