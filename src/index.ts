@@ -1,15 +1,17 @@
-// export function client(secret: string, password: string, key: string) {}
-
+import axios from 'axios';
+import querystring from 'querystring';
 import { createHmac } from 'crypto';
 import { AuthHeader } from './types/auth';
-import querystring from 'querystring';
-import axios from 'axios';
 
-import dotenv from 'dotenv';
-dotenv.config();
+import { createAccountRequest } from './account';
+import { createUserRequest } from './User';
+import { createDepositRequest } from './deposit';
+import { createWithdrawalsRequest } from './withdrawals';
+import { createTradeFeeRequest } from './tradeFee';
+import { createOrderRequest } from './orders';
 
 export class Client {
-  private baseUrl = 'https://api.kucoin.com/api';
+  private baseUrl = 'https://api.kucoin.com';
   // private baseUrl = 'https://openapi-sandbox.kucoin.com';
 
   constructor(private secret: string, private password: string, private key: string) {}
@@ -21,7 +23,6 @@ export class Client {
   private createAuth(method: string, url: string, body?: object): AuthHeader {
     const bodyToSend = body ? JSON.stringify(body) : '';
     const timestamp = Date.now().toString();
-    console.log({ timestamp });
     const signature = this.sign(timestamp + method.toUpperCase() + url + bodyToSend, this.secret);
     const passphrase = this.sign(this.password, this.secret);
     return {
@@ -36,68 +37,23 @@ export class Client {
   }
 
   private get = (endpoint: string, params?: any) => {
-    const url = `${this.baseUrl}${endpoint}?${querystring.stringify(params)}`;
-    return axios.get(url, this.createAuth('GET', url));
+    const empty = Object.keys(params).length === 0;
+    const url = `${endpoint}${!empty ? '?' : ''}${querystring.stringify(params)}`;
+    return axios.get(this.baseUrl + url, this.createAuth('GET', url));
   };
   private post = (endpoint: string, body: any) => {
     const url = `${this.baseUrl}${endpoint}`;
-    return axios.post(url, body, this.createAuth('POST', url, body));
+    return axios.post(url, body, this.createAuth('POST', endpoint, body));
   };
+  // private delete = (endpoint: string, body: any) => {
+  //   const url = `${this.baseUrl}${endpoint}`;
+  //   return axios.delete(url, body, this.createAuth('POST', url, body));
+  // };
 
-  getSubAccounts = async (params: IGetSubAccounts) => this.get(`/v2/sub/user`, params);
-  listAccounts = async (params: IListAccounts) => this.get(`/v1/accounts`, params);
-  getAnAccount = async ({ accountId }: IGetAnAccount) => this.get(`/v1/accounts/${accountId}`);
-  getAccountLedgers = async (params: IGetAccountLedgers) =>
-    this.get(`/v1/accounts/ledgers`, params);
-  getAccountSummaryInfo = async () => this.get(`/v2/user-info`);
-  createSubAccount = async (body: ICreateSubAccount) => this.post(`/v2/sub/user/created`, body);
+  public user = createUserRequest(this.get);
+  public account = createAccountRequest(this.get, this.post);
+  public deposit = createDepositRequest(this.get, this.post);
+  public withdrawals = createWithdrawalsRequest(this.get, this.post);
+  public tradeFee = createTradeFeeRequest(this.get);
+  public orders = createOrderRequest(this.get, this.post);
 }
-
-type IGetSubAccounts = {
-  currentPage?: number;
-  pageSize?: number;
-};
-
-type IListAccounts = {
-  currency?: string;
-  type?: 'main' | 'trade' | 'margin';
-};
-
-type IGetAnAccount = {
-  accountId: string;
-};
-
-type IGetAccountLedgers = {
-  currency?: string;
-  direction?: 'in' | 'out';
-  bizType?:
-    | 'DEPOSIT'
-    | 'WITHDRAW'
-    | 'TRANSFER'
-    | 'SUB_TRANSFER'
-    | 'TRADE_EXCHANGE'
-    | 'MARGIN_EXCHANGE'
-    | 'KUCOIN_BONUS';
-  startAt?: string;
-  endAt?: string;
-};
-
-type ICreateSubAccount = {
-  password: string;
-  remarks?: string;
-  subName: string;
-  access: 'Spot' | 'Futures' | 'Margin';
-};
-
-async function test() {
-  const client = new Client(
-    process.env.SECRET as string,
-    process.env.PASS as string,
-    process.env.KEY as string,
-  );
-  console.log(client);
-  const { data } = await client.getAccountSummaryInfo();
-  console.log(data);
-}
-
-test();
