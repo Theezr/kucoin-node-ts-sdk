@@ -21,7 +21,7 @@ async function setupWebsocket() {
 
   ws.onopen = function () {
     console.log('WebSocket Connected');
-    // you need to pink the websocket to stay alive
+    // you need to ping the websocket to stay alive
     setInterval(() => pingWebsocket(ws), instanceServers[0].pingInterval);
 
     const action = {

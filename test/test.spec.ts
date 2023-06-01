@@ -33,26 +33,6 @@ describe('Create client and check user info', () => {
       size: '12',
     });
 
-    // const { data } = await client.orders.placeBulkOrders({
-    //   orderList: [
-    //     {
-    //       clientOid: Date.now().toString(),
-    //       side: 'buy',
-    //       symbol: 'USDT',
-    //       price: '12',
-    //       size: '12',
-    //     },
-    //   ],
-    // });
-    // console.log(data);
-    // const data = await client.getSubAccounts({
-    //   currentPage: 1,
-    //   pageSize: 1,
-    // });
-
-    // const { data } = await client.listAccounts({});
-    // console.log(data);
-
-    // const hi = await client.getAccountSummaryInfo();
+    const marginInfo = await client.marginInfo.getMarkPrice({ symbol: 'USDT' });
   });
 });
