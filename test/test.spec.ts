@@ -8,11 +8,11 @@ dotenv.config();
 
 describe('Create client and check user info', () => {
   it('should create a client', async () => {
-    const client = new Client(
-      process.env.SECRET as string,
-      process.env.PASS as string,
-      process.env.KEY as string,
-    );
+    const client = new Client({
+      secret: process.env.SECRET as string,
+      password: process.env.PASS as string,
+      key: process.env.KEY as string,
+    });
 
     const { data } = await client.isolatedMargin.singleRepayment({
       symbol: 'BTC-USDT',

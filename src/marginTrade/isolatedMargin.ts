@@ -1,16 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { ISymbol } from '../marketData/symbolsTicker';
-
-const url = {
-  queryIsolatedMarginTradingPairConfig: '/api/v1/isolated/symbols',
-  queryIsolatedMarginAccountInfo: '/api/v1/isolated/accounts',
-  querySingleIsolatedMarginAccountInfo: '/api/v1/isolated/account',
-  isolatedMarginBorrowing: '/api/v1/isolated/borrow',
-  queryOutstandingRepaymentRecords: '/api/v1/isolated/borrow/outstanding',
-  queryRepaymentRecords: '/api/v1/isolated/borrow/repaid',
-  quickRepayment: '/api/v1/isolated/repay/all',
-  singleRepayment: '/api/v1/isolated/repay/single',
-};
+import { isolatedMarginUrls as url } from '../utils/urls';
 
 export const createIsolatedMarginRequest = (
   get: (endpoint: string, params?: any) => Promise<AxiosResponse>,

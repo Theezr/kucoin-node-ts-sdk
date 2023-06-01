@@ -7,13 +7,18 @@
     "./src/*.test.ts"
   ],
   "compilerOptions": {
-    "target": "es2021" /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', or 'ESNEXT'. */,
-    "module": "CommonJS" /* Specify module code generation: 'commonjs', 'amd', 'system', 'umd' or 'es2015'. */,
+    "lib": [
+      "es2022"
+    ],
+    "target": "ES2022",
+    "module": "CommonJS",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "strict": true, /* Enable all strict type-checking options. */
+    "strict": true,
     "noImplicitAny": true,
-    "skipLibCheck": true /* Skip type checking all .d.ts files. */
+    "skipLibCheck": true,
+    "declaration": true,
+    "outDir": "lib"
   }
 }

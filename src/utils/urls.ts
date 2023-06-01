@@ -116,3 +116,14 @@ export const borrowLendUrls = {
   lendingMarketData: '/api/v1/margin/market',
   marginTradeData: '/api/v1/margin/trade/last',
 };
+
+export const isolatedMarginUrls = {
+  queryIsolatedMarginTradingPairConfig: '/api/v1/isolated/symbols',
+  queryIsolatedMarginAccountInfo: '/api/v1/isolated/accounts',
+  querySingleIsolatedMarginAccountInfo: '/api/v1/isolated/account',
+  isolatedMarginBorrowing: '/api/v1/isolated/borrow',
+  queryOutstandingRepaymentRecords: '/api/v1/isolated/borrow/outstanding',
+  queryRepaymentRecords: '/api/v1/isolated/borrow/repaid',
+  quickRepayment: '/api/v1/isolated/repay/all',
+  singleRepayment: '/api/v1/isolated/repay/single',
+};

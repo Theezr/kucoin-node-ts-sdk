@@ -18,20 +18,24 @@ import { createCurrenciesRequest } from './marketData/currencies';
 import { createMarketInfoRequest } from './marginTrade/marginInfo';
 import { createBorrowLendRequest } from './marginTrade/borrowLend';
 import { createIsolatedMarginRequest } from './marginTrade/isolatedMargin';
+import { createWebsocketTokenRequest } from './websockets/test';
 
 export class Client {
   private baseUrl = baseUrl;
 
-  constructor(private secret: string, private password: string, private key: string) {}
+  constructor(private secrets: ICreateClient) {}
 
   private createAuth(method: string, url: string, body?: object): AuthHeader {
     const bodyToSend = body ? JSON.stringify(body) : '';
     const timestamp = Date.now().toString();
-    const signature = sign(timestamp + method.toUpperCase() + url + bodyToSend, this.secret);
-    const passphrase = sign(this.password, this.secret);
+    const signature = sign(
+      timestamp + method.toUpperCase() + url + bodyToSend,
+      this.secrets.secret,
+    );
+    const passphrase = sign(this.secrets.password, this.secrets.secret);
     return {
       headers: {
-        'KC-API-KEY': this.key,
+        'KC-API-KEY': this.secrets.key,
         'KC-API-SIGN': signature,
         'KC-API-TIMESTAMP': timestamp,
         'KC-API-PASSPHRASE': passphrase,
@@ -69,4 +73,14 @@ export class Client {
   public marginInfo = createMarketInfoRequest(this.get);
   public borrowLend = createBorrowLendRequest(this.get, this.post, this.delete);
   public isolatedMargin = createIsolatedMarginRequest(this.get, this.post);
+
+  public websocket = createWebsocketTokenRequest(this.post);
 }
+
+export type ICreateClient = {
+  secret: string;
+  password: string;
+  key: string;
+};
+
+export default Client;
