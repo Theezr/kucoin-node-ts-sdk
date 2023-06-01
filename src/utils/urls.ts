@@ -127,3 +127,20 @@ export const isolatedMarginUrls = {
   quickRepayment: '/api/v1/isolated/repay/all',
   singleRepayment: '/api/v1/isolated/repay/single',
 };
+
+export const marginTradingUrls = {
+  marginBorrowing: '/api/v3/margin/borrow',
+  repayment: '/api/v3/margin/repay',
+  getMarginBorrowingHistory: '/api/v3/margin/borrow',
+  getRepaymentHistory: '/api/v3/margin/repay',
+};
+
+export const lendingMarketUrls = {
+  getCurrencyInformation: '/api/v3/project/list',
+  getInterestRates: '/api/v3/project/marketInterestRate',
+  subscription: '/api/v3/purchase',
+  redemption: '/api/v3/redeem',
+  modifySubscriptionOrders: '/api/v3/lend/purchase/update',
+  getRedemptionOrders: '/api/v3/redeem/orders',
+  getSubscriptionOrders: '/api/v3/purchase/orders',
+};

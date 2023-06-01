@@ -1,11 +1,5 @@
 import { AxiosResponse } from 'axios';
-
-const url = {
-  marginBorrowing: '/api/v3/margin/borrow',
-  repayment: '/api/v3/margin/repay',
-  getMarginBorrowingHistory: '/api/v3/margin/borrow',
-  getRepaymentHistory: '/api/v3/margin/repay',
-};
+import { marginTradingUrls as url } from '../utils/urls';
 
 export const createMarginTradingRequest = (
   get: (endpoint: string, params?: any) => Promise<AxiosResponse>,

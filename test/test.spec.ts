@@ -14,20 +14,24 @@ describe('Create client and check user info', () => {
       key: process.env.KEY as string,
     });
 
-    const { data } = await client.marginTrading.getRepaymentHistory({
+    const { data } = await client.account.innerTransfer({
+      clientOid: Date.now().toString(),
       currency: 'USDT',
+      from: 'trade',
+      to: 'isolated',
+      amount: '1',
+      toTag: 'USDC-BTC',
     });
 
     console.log(data);
 
-    // const body = {
-    //   clientOid: Date.now().toString(),
-    //   currency: 'USDT',
-    //   from: 'trade',
-    //   to: 'isolated',
-    //   amount: '1',
-    //   toTag: 'USDC-BTC',
-    // } as IInnerTransfer;
+    const dtest = await client.orders.placeNewOrder({
+      clientOid: Date.now().toString(),
+      side: 'buy',
+      symbol: 'USDT',
+      price: '12',
+      size: '12',
+    });
 
     // const { data } = await client.orders.placeBulkOrders({
     //   orderList: [
