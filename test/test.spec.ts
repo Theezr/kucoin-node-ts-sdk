@@ -14,11 +14,8 @@ describe('Create client and check user info', () => {
       key: process.env.KEY as string,
     });
 
-    const { data } = await client.isolatedMargin.singleRepayment({
-      symbol: 'BTC-USDT',
-      currency: 'USDTT',
-      size: 1,
-      loanId: '123',
+    const { data } = await client.marginTrading.getRepaymentHistory({
+      currency: 'USDT',
     });
 
     console.log(data);

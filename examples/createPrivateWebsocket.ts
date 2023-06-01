@@ -12,7 +12,7 @@ async function setupWebsocket() {
 
   const tokenInfo = await client.websocket.getPrivateWebsocketToken();
   const { token, instanceServers } = tokenInfo.data.data;
-  console.log(instanceServers);
+
   const ws = client.websocket.openWebsocket({ endpoint: instanceServers[0].endpoint, token });
 
   ws.onerror = function (e: any) {
