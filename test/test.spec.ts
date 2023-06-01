@@ -14,6 +14,8 @@ describe('Create client and check user info', () => {
       key: process.env.KEY as string,
     });
 
+    const serverTime = await client.others.getServerTime();
+
     const { data } = await client.account.innerTransfer({
       clientOid: Date.now().toString(),
       currency: 'USDT',

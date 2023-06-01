@@ -21,6 +21,7 @@ import { createIsolatedMarginRequest } from './marginTrade/isolatedMargin';
 import { createWebsocketTokenRequest } from './websocket/openWebsocket';
 import { createMarginTradingRequest } from './marginTrade/marginTradingV3';
 import { createLendingMarketRequest } from './marginTrade/lendingMarket';
+import { createOthersRequest } from './others';
 
 export class Client {
   private baseUrl = baseUrl;
@@ -77,6 +78,7 @@ export class Client {
   public isolatedMargin = createIsolatedMarginRequest(this.get, this.post);
   public marginTrading = createMarginTradingRequest(this.get, this.post);
   public lendingMarket = createLendingMarketRequest(this.get, this.post);
+  public others = createOthersRequest(this.get);
 
   public websocket = createWebsocketTokenRequest(this.post);
 }
