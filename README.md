@@ -1,6 +1,6 @@
 # KuCoin JS Client
 
-Welcome to the client library for Kucoin REST and WebSocket API with typescript support
+Welcome to the client [library](https://github.com/Theezr/kucoin-node-ts-sdk) for Kucoin REST and WebSocket API with typescript support
 
 ## Getting started
 
